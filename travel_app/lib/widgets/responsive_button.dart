@@ -27,13 +27,10 @@ class ResponsiveButton extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 20),
                     child: AppText(text: "Book Trip Now", color: Colors.white))
                 : Container(),
-            Container(
-              margin: const EdgeInsets.only(right: 20),
-              child: Image.asset(
-                "img/button.png",
-                width: 40,
-                height: 30,
-              ),
+            Image.asset(
+              "img/button.png",
+              width: 40,
+              height: 30,
             ),
           ],
         ),
