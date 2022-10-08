@@ -61,24 +61,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               const SizedBox(height: 20),
               //tabBar
-              Container(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TabBar(
-                      labelPadding: const EdgeInsets.only(left: 20, right: 20),
-                      controller: tabController,
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey.withOpacity(0.5),
-                      isScrollable: true,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      indicator:
-                          CircleTabIndicator(color: (mainColor)!, radius: 4),
-                      tabs: [
-                        Tab(text: "Places"),
-                        Tab(text: "Inspiration"),
-                        Tab(text: "Emotions"),
-                      ]),
-                ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TabBar(
+                    labelPadding: const EdgeInsets.only(left: 20, right: 20),
+                    controller: tabController,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey.withOpacity(0.5),
+                    isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicator:
+                        CircleTabIndicator(color: (mainColor)!, radius: 4),
+                    tabs: const [
+                      Tab(text: "Places"),
+                      Tab(text: "Inspiration"),
+                      Tab(text: "Emotions"),
+                    ]),
               ),
               Container(
                 padding: const EdgeInsets.only(left: 20),
@@ -91,26 +89,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       itemCount: info.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 15, top: 10),
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            image: DecorationImage(
-                              //arrumar depois
-                              image: NetworkImage(
-                                  "http://mark.bslmeiyu.com/uploads/" +
-                                      info[index].img),
-                              fit: BoxFit.cover,
+                        return GestureDetector(
+                          onTap: () {
+                            BlocProvider.of<AppCubits>(context)
+                                .detailPage(info[index]);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 15, top: 10),
+                            width: 200,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                //arrumar depois
+                                image: NetworkImage(
+                                    "http://mark.bslmeiyu.com/uploads/${info[index].img}"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         );
                       },
                     ),
-                    Text("There"),
-                    Text("Bye"),
+                    const Text("There"),
+                    const Text("Bye"),
                   ],
                 ),
               ),
@@ -156,11 +159,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          SizedBox(height: 5),
-                          Container(
-                              child: AppText(
-                                  text: images.values.elementAt(index),
-                                  color: textcolor2)),
+                          const SizedBox(height: 5),
+                          AppText(
+                              text: images.values.elementAt(index),
+                              color: textcolor2),
                         ],
                       ),
                     );
@@ -322,7 +324,6 @@ class CircleTabIndicator extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    // TODO: implement createBoxPainter
     return _CirclePainter(color: color, radius: radius);
   }
 }
